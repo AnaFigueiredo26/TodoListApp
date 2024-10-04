@@ -21,11 +21,18 @@ function usePrevious(value) {
 }
 
 function App(props) {
-  const [tasks, dispatch] = useReducer(tasksReducer, props.tasks);
+  const [tasks, dispatch] = useReducer(tasksReducer, [], () => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : props.tasks;
+  });
   const [filter, setFilter] = useState("All");
   const listHeadingRef = useRef(null);
 
   const prevTaskLength = usePrevious(tasks.length);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   useEffect(() => {
     if (tasks.length < prevTaskLength) {
