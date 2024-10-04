@@ -1,8 +1,9 @@
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
+import tasksReducer from "./helpers/taskReducer";
 import { nanoid } from "nanoid";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useReducer } from "react";
 
 const FILTER_MAP = {
   All: () => true,
@@ -20,7 +21,7 @@ function usePrevious(value) {
 }
 
 function App(props) {
-  const [tasks, setTasks] = useState(props.tasks);
+  const [tasks, dispatch] = useReducer(tasksReducer, props.tasks);
   const [filter, setFilter] = useState("All");
   const listHeadingRef = useRef(null);
 
@@ -49,34 +50,34 @@ function App(props) {
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
   const headingText = `${taskList.length} ${tasksNoun} remaining`;
 
-  function addTask(name) {
-    const newTask = { id: `todo-${nanoid()}`, name, completed: false };
-    setTasks([...tasks, newTask]);
-  }
-
-  function deleteTask(id) {
-    const remainingTasks = tasks.filter((task) => id !== task.id);
-    setTasks(remainingTasks);
-  }
-
-  function editTask(id, newName) {
-    const editedTaskList = tasks.map((task) => {
-      if (id === task.id) {
-        return { ...task, name: newName };
-      }
-      return task;
+  function addTask(taskName) {
+    dispatch({
+      type: "added",
+      id: `todo-${nanoid()}`,
+      name: taskName,
     });
-    setTasks(editedTaskList);
   }
 
-  function toggleTaskCompleted(id) {
-    const updatedTasks = tasks.map((task) => {
-      if (id === task.id) {
-        return { ...task, completed: !task.completed };
-      }
-      return task;
+  function toggleTaskCompleted(taskId) {
+    dispatch({
+      type: "toggleCompleted",
+      id: taskId,
     });
-    setTasks(updatedTasks);
+  }
+
+  function deleteTask(taskId) {
+    dispatch({
+      type: "deleted",
+      id: taskId,
+    });
+  }
+
+  function editTask(taskId, newName) {
+    dispatch({
+      type: "changed",
+      id: taskId,
+      name: newName,
+    });
   }
 
   const filterList = FILTER_NAMES.map((name) => (
