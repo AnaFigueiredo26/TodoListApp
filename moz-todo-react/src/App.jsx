@@ -97,10 +97,10 @@ function App(props) {
   ));
 
   return (
-    <div className="bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300 min-h-screen flex justify-center items-center flex-col">
-      <div className="bg-slate-50/65 rounded-2xl px-14 py-12 w-6/12 min-h-96">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300">
+      <div className="min-h-96 w-6/12 rounded-2xl bg-slate-50/65 px-14 py-12">
         <Form addTask={addTask} />
-        <div className="flex justify-between items-end text-purple-950 mt-8 mb-2 px-1">
+        <div className="mb-2 mt-8 flex items-end justify-between px-1 text-purple-950">
           <div className="flex space-x-4">{filterList}</div>
           <span
             id="list-heading"
@@ -113,7 +113,7 @@ function App(props) {
         </div>
         <ul
           role="list"
-          className="flex flex-col space-y-3 h-56 overflow-auto mt-4"
+          className="mt-4 flex h-[244px] flex-col space-y-3 overflow-auto"
           aria-labelledby="list-heading"
         >
           {taskList.length ? taskList : "🥱 Zzzzzz..."}

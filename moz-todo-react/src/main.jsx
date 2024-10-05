@@ -7,5 +7,5 @@ import { DATA } from "./data.js";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App tasks={DATA} />
-  </StrictMode>
+  </StrictMode>,
 );

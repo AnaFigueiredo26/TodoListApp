@@ -5,7 +5,7 @@ function FilterButton(props) {
     <button
       type="button"
       className={`${
-        isPressed ? "font-bold border-b border-purple-950" : "font-normal"
+        isPressed ? "border-b border-purple-950 font-bold" : "font-normal"
       }`}
       aria-pressed={isPressed}
       onClick={() => setFilter(name)}
