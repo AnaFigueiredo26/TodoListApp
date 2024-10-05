@@ -4,13 +4,15 @@ function FilterButton(props) {
   return (
     <button
       type="button"
-      className="btn toggle-btn"
+      className={`${
+        isPressed ? "font-bold border-b border-purple-950" : "font-normal"
+      }`}
       aria-pressed={isPressed}
       onClick={() => setFilter(name)}
     >
-      <span className="visually-hidden">Show </span>
+      <span className="hidden">Show </span>
       <span>{name}</span>
-      <span className="visually-hidden"> tasks</span>
+      <span className="hidden"> tasks</span>
     </button>
   );
 }

@@ -97,20 +97,28 @@ function App(props) {
   ));
 
   return (
-    <div className="todoapp stack-large">
-      <h1>TodoMatic</h1>
-      <Form addTask={addTask} />
-      <div className="filters btn-group stack-exception">{filterList}</div>
-      <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
-        {headingText}
-      </h2>
-      <ul
-        role="list"
-        className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading"
-      >
-        {taskList}
-      </ul>
+    <div className="bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300 min-h-screen flex justify-center items-center flex-col">
+      <div className="bg-slate-50/65 rounded-2xl px-14 py-12 w-6/12 min-h-96">
+        <Form addTask={addTask} />
+        <div className="flex justify-between items-end text-purple-950 mt-8 mb-2 px-1">
+          <div className="flex space-x-4">{filterList}</div>
+          <span
+            id="list-heading"
+            className="text-xs font-medium"
+            tabIndex="-1"
+            ref={listHeadingRef}
+          >
+            {headingText}
+          </span>
+        </div>
+        <ul
+          role="list"
+          className="flex flex-col space-y-3 h-56 overflow-auto mt-4"
+          aria-labelledby="list-heading"
+        >
+          {taskList.length ? taskList : "🥱 Zzzzzz..."}
+        </ul>
+      </div>
     </div>
   );
 }
