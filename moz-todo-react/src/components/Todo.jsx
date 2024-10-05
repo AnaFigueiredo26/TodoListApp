@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 function usePrevious(value) {
   const ref = useRef();

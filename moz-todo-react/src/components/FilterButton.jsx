@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 function FilterButton(props) {
   const { name, isPressed, setFilter } = props;
 

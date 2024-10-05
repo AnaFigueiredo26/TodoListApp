@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
