@@ -6,7 +6,7 @@ import ToDoItem from './components/ToDoItem.vue'
 import ToDoForm from './components/ToDoForm.vue'
 import { DATA } from './data'
 
-const STORAGE_KEY = 'vue-tasks'
+const STORAGE_KEY = 'tasks'
 
 const filters = {
   all: (todos) => todos,
@@ -65,7 +65,9 @@ function onHashChange() {
 </script>
 
 <template>
-  <div id="app">
+  <div
+    className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300"
+  >
     <h1>To-Do List</h1>
     <ToDoForm @addToDo="handleAddToDo" />
     <ul class="filters">
