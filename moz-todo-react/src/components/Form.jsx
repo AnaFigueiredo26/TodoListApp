@@ -17,10 +17,7 @@ function Form(props) {
   }
 
   return (
-    <form className="flex flex-col space-y-12" onSubmit={handleSubmit}>
-      <h2 className="text-center text-4xl font-extrabold uppercase text-purple-950">
-        <label htmlFor="new-todo-input">ToDo List</label>
-      </h2>
+    <form onSubmit={handleSubmit}>
       <div className="flex space-x-1 rounded-md bg-white p-1">
         <input
           type="text"

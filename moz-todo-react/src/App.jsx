@@ -100,6 +100,9 @@ function App(props) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300">
       <div className="min-h-96 w-6/12 rounded-2xl bg-slate-50/65 px-14 py-12">
+        <h2 className="mb-8 text-center text-4xl font-extrabold uppercase text-purple-950">
+          ToDo List
+        </h2>
         <Form addTask={addTask} />
         <div className="mb-2 mt-8 flex items-end justify-between px-1 text-purple-950">
           <div className="flex space-x-4">{filterList}</div>
