@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, watchEffect, useTemplateRef } from 'vue'
 import { nanoid } from 'nanoid'
 
 import ToDoItem from './components/ToDoItem.vue'
@@ -17,6 +17,8 @@ const filters = {
 const storedTodos = localStorage.getItem(STORAGE_KEY)
 const todos = ref(storedTodos ? JSON.parse(storedTodos) : DATA)
 const visibility = ref('all')
+
+const remainingLabel = useTemplateRef('remaining-summary')
 
 // derived state
 const filteredTodos = computed(() => filters[visibility.value](todos.value))
@@ -45,6 +47,7 @@ function updateDoneStatus(toDoId) {
 function deleteToDo(toDoId) {
   const itemIndex = todos.value.findIndex((item) => item.id === toDoId)
   todos.value.splice(itemIndex, 1)
+  remainingLabel.value.focus()
 }
 
 function itemEdited(toDoId, newLabel) {
@@ -96,7 +99,7 @@ function onHashChange() {
             >
           </li>
         </ul>
-        <span id="list-heading" class="text-xs font-medium" tabIndex="-1">
+        <span id="list-heading" class="text-xs font-medium" tabIndex="-1" ref="remaining-summary">
           {{ remaining }}
           <span>{{ remaining === 1 ? ' task' : ' tasks' }} remaining</span>
         </span>

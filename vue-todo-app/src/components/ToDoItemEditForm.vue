@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue'
+import { defineProps, ref, watch, useTemplateRef, onMounted } from 'vue'
 
 const { id, name } = defineProps({
   id: String,
@@ -7,11 +7,16 @@ const { id, name } = defineProps({
 })
 const emit = defineEmits(['item-edited', 'edit-cancelled'])
 const newName = ref(name)
+const input = useTemplateRef('label-input')
+
+onMounted(() => {
+  input.value.focus()
+})
 
 watch(
   () => name,
   (newVal) => {
-    newName.value = newVal // Update newName if the prop changes
+    newName.value = newVal
   }
 )
 
@@ -31,6 +36,7 @@ function onCancel() {
         <input
           class="grow rounded-sm p-2 focus:border-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-300"
           :id="id"
+          ref="label-input"
           type="text"
           autocomplete="off"
           v-model.lazy.trim="newName"

@@ -1,6 +1,6 @@
 <script setup>
 import ToDoItemEditForm from './ToDoItemEditForm.vue'
-import { ref, defineEmits, defineProps } from 'vue'
+import { ref, defineEmits, defineProps, useTemplateRef } from 'vue'
 
 const { id, name, completed } = defineProps({
   id: String,
@@ -11,6 +11,7 @@ const { id, name, completed } = defineProps({
 const emit = defineEmits(['item-deleted', 'checkbox-changed', 'item-edited'])
 
 const isEditing = ref(false)
+const editBtn = useTemplateRef('edit-button')
 
 function deleteToDo() {
   emit('item-deleted', id)
@@ -23,10 +24,12 @@ function toggleToItemEditForm() {
 function itemEdited(newLabel) {
   emit('item-edited', id, newLabel)
   isEditing.value = false
+  editBtn.value.focus()
 }
 
 function editCancelled() {
   isEditing.value = false
+  editBtn.value.focus()
 }
 
 function checkboxChanged() {
@@ -55,6 +58,7 @@ function checkboxChanged() {
         <button
           type="button"
           class="text-xs font-medium text-white/75 opacity-0 hover:text-white group-hover:opacity-100"
+          ref="edit-button"
           @click="toggleToItemEditForm"
         >
           Edit

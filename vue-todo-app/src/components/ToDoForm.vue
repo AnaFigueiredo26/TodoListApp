@@ -22,8 +22,6 @@ function onSubmit() {
         class="flex-grow rounded-sm p-2 focus:border-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-300"
         v-model="newToDoText"
         autoComplete="off"
-        value=""
-        onChange=""
       />
       <button
         type="submit"
