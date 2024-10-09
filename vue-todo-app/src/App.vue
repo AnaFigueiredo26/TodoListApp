@@ -20,6 +20,7 @@ const visibility = ref('all')
 
 // derived state
 const filteredTodos = computed(() => filters[visibility.value](todos.value))
+const remaining = computed(() => filters.active(todos.value).length)
 
 // handle routing
 window.addEventListener('hashchange', onHashChange)
@@ -66,34 +67,57 @@ function onHashChange() {
 
 <template>
   <div
-    className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300"
+    class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300"
   >
-    <h1>To-Do List</h1>
-    <ToDoForm @addToDo="handleAddToDo" />
-    <ul class="filters">
-      <li>
-        <a href="#/all" :class="{ selected: visibility === 'all' }">All</a>
-      </li>
-      <li>
-        <a href="#/active" :class="{ selected: visibility === 'active' }">Active</a>
-      </li>
-      <li>
-        <a href="#/completed" :class="{ selected: visibility === 'completed' }">Completed</a>
-      </li>
-    </ul>
-    <ul>
-      <li v-for="todo in filteredTodos" :key="todo.id">
-        <ToDoItem
-          :name="todo.name"
-          :completed="todo.completed"
-          :id="todo.id"
-          @checkbox-changed="updateDoneStatus"
-          @item-deleted="deleteToDo"
-          @item-edited="itemEdited"
-        />
-      </li>
-    </ul>
+    <div class="min-h-96 w-6/12 rounded-2xl bg-slate-50/65 px-14 py-12">
+      <h2 class="mb-8 text-center text-4xl font-extrabold uppercase text-purple-950">ToDo List</h2>
+      <ToDoForm @addToDo="handleAddToDo" />
+      <div class="mb-2 mt-8 flex items-end justify-between px-1 text-purple-950">
+        <ul class="filters flex space-x-4">
+          <li>
+            <a
+              href="#/all"
+              :class="{ 'border-b border-purple-950 font-bold': visibility === 'all' }"
+              >All</a
+            >
+          </li>
+          <li>
+            <a
+              href="#/active"
+              :class="{ 'border-b border-purple-950 font-bold': visibility === 'active' }"
+              >Active</a
+            >
+          </li>
+          <li>
+            <a
+              href="#/completed"
+              :class="{ 'border-b border-purple-950 font-bold': visibility === 'completed' }"
+              >Completed</a
+            >
+          </li>
+        </ul>
+        <span id="list-heading" class="text-xs font-medium" tabIndex="-1">
+          {{ remaining }}
+          <span>{{ remaining === 1 ? ' task' : ' tasks' }} remaining</span>
+        </span>
+      </div>
+      <ul class="mt-4 flex h-[244px] flex-col space-y-3 overflow-auto">
+        <li
+          v-for="todo in filteredTodos"
+          :key="todo.id"
+          class="relative rounded-md bg-white"
+          :class="{ 'opacity-70': todo.completed }"
+        >
+          <ToDoItem
+            :name="todo.name"
+            :completed="todo.completed"
+            :id="todo.id"
+            @checkbox-changed="updateDoneStatus"
+            @item-deleted="deleteToDo"
+            @item-edited="itemEdited"
+          />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
-
-<style scoped></style>

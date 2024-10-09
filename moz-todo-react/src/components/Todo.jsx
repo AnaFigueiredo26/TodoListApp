@@ -53,7 +53,6 @@ function Todo(props) {
             className="text-xs font-medium text-white/80 hover:text-white"
           >
             Save
-            <span className="hidden">new name for {name}</span>
           </button>
           <button
             type="button"
@@ -61,10 +60,8 @@ function Todo(props) {
             onClick={() => setEditing(false)}
           >
             Cancel
-            <span className="hidden">renaming {name}</span>
           </button>
         </div>
-        <div className="flex items-center"></div>
       </div>
     </form>
   );

@@ -2,7 +2,6 @@
 import ToDoItemEditForm from './ToDoItemEditForm.vue'
 import { ref, defineEmits, defineProps } from 'vue'
 
-//id, name, completed, toggleTaskCompleted, deleteTask, editTask
 const { id, name, completed } = defineProps({
   id: String,
   name: String,
@@ -36,14 +35,38 @@ function checkboxChanged() {
 </script>
 
 <template>
-  <div v-if="!isEditing">
-    <div>
-      <input type="checkbox" :id="id" :checked="completed" @change="checkboxChanged" />
-      <label :for="id">{{ name }}</label>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn" @click="toggleToItemEditForm">Edit</button>
-      <button type="button" class="btn btn__danger" @click="deleteToDo">Delete</button>
+  <div class="flex flex-col pr-0" v-if="!isEditing">
+    <div class="flex items-center hover:cursor-pointer">
+      <div class="flex grow items-center justify-center space-x-1.5 px-3">
+        <input
+          type="checkbox"
+          class="h-4 w-4 hover:cursor-pointer"
+          :id="id"
+          :checked="completed"
+          @change="checkboxChanged"
+        />
+        <label class="grow text-sm font-medium text-purple-950 hover:cursor-pointer" :for="id">{{
+          name
+        }}</label>
+      </div>
+      <div
+        class="group flex w-1.5 flex-col justify-center space-y-1 overflow-hidden rounded-br-md rounded-tr-md bg-gradient-to-r from-purple-600/70 via-purple-600/85 to-purple-600 py-2 transition-all ease-in-out hover:w-16"
+      >
+        <button
+          type="button"
+          class="text-xs font-medium text-white/75 opacity-0 hover:text-white group-hover:opacity-100"
+          @click="toggleToItemEditForm"
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          class="text-xs font-medium text-white/75 opacity-0 hover:text-white group-hover:opacity-100"
+          @click="deleteToDo"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
   <ToDoItemEditForm
